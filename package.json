@@ -1,14 +1,25 @@
 {
   "name": "roapi",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "请求库",
+  "keywords": [
+    "roapi",
+    "请求重试",
+    "请求缓存",
+    "请求幂等",
+    "请求串行",
+    "请求并发"
+  ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "dist/roapi.esm.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c build/index.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
