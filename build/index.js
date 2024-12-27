@@ -7,6 +7,7 @@ import path from "node:path";
 // import dts from 'rollup-plugin-dts'; // 将 ts 声明文件打包成 js
 
 const resolveFile = (filePath) => {
+
     return path.join(process.cwd(), filePath);
 };
 
@@ -30,22 +31,22 @@ export default {
     input: resolveFile("./src/index.ts"),
     output: [
         {
-            file: resolveFile("../dist/roapi.esm.js"),
+            file: resolveFile("./dist/roapi.esm.js"),
             format: "esm",
             name: 'roapi',
-            sourcemap: true
+            // sourcemap: true
         },
         {
-            file: resolveFile("../dist/roapi.cjs.js"),
+            file: resolveFile("./dist/roapi.cjs.js"),
             format: "cjs",
             name: 'roapi',
-            sourcemap: true
+            // sourcemap: true
         },
         {
-            file: resolveFile("../dist/roapi.js"),
+            file: resolveFile("./dist/roapi.js"),
             format: "iife",
             name: 'roapi',
-            sourcemap: true
+            // sourcemap: true
         }
     ],
     plugins

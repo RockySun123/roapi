@@ -12,6 +12,7 @@ import { Requestor } from './request-core'
 inject(requestor as Requestor)
 
 export {
+    request,
     useRequestor,
     createCacheRequestor,
     createIdemportentRequestor,
@@ -19,4 +20,4 @@ export {
     createRetryRequestor
 }
 
-export default request
+// export default request

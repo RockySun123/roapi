@@ -54,14 +54,14 @@
     // "maxNodeModuleJsDepth": 1,                        /* Specify the maximum folder depth used for checking JavaScript files from 'node_modules'. Only applicable with 'allowJs'. */
 
     /* Emit */
-    // "declaration": true, //生成 .d.ts 文件
+    "declaration": true, //生成 .d.ts 文件
     // "declarationMap": true,                           /* Create sourcemaps for d.ts files. */
-    // "emitDeclarationOnly": true /* 仅生成声明文件（避免重复编译） */,
+    "emitDeclarationOnly": true /* 仅生成声明文件（避免重复编译） */,
     // "sourceMap": true,                                /* Create source map files for emitted JavaScript files. */
     // "inlineSourceMap": true,                          /* Include sourcemap files inside the emitted JavaScript. */
     // "noEmit": true,                                   /* Disable emitting files from a compilation. */
     // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If 'declaration' is true, also designates a file that bundles all .d.ts output. */
-    // "outDir": "./dist" /* JS 文件输出目录. */,
+    "outDir": "./dist" /* JS 文件输出目录. */,
     // "removeComments": true,                           /* Disable emitting comments. */
     "importHelpers": true /* Allow importing helper functions from tslib once per project, instead of including them per-file. */,
     // "downlevelIteration": true,                       /* Emit more compliant, but verbose and less performant JavaScript for iteration. */
@@ -74,7 +74,7 @@
     // "noEmitHelpers": true,                            /* Disable generating custom helper functions like '__extends' in compiled output. */
     // "noEmitOnError": true,                            /* Disable emitting files if any type checking errors are reported. */
     // "preserveConstEnums": true,                       /* Disable erasing 'const enum' declarations in generated code. */
-    // "declarationDir": "./dist" /*声明文件输出目录 */,
+    "declarationDir": "./dist" /*声明文件输出目录 */,
 
     /* Interop Constraints */
     // "isolatedModules": true,                          /* Ensure that each file can be safely transpiled without relying on other imports. */
