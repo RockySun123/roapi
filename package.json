@@ -14,7 +14,7 @@
     "dist",
     "README.md"
   ],
-  "main": "index.ts",
+  "main": "dist/index.ts",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
