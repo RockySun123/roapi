@@ -1,9 +1,9 @@
 export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-
+export type RequireOne<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>
 export interface RequestOptions {
     // 请求URL
     url?: string,
-    method: RequestMethod, // 限定请求方法
+    method?: RequestMethod, // 限定请求方法
     headers?: Record<string, string>, // 请求头
     body?: any, // 请求体
     data?: any, // 请求体

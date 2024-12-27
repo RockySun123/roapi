@@ -4,4 +4,4 @@ export { createIdemportentRequestor } from './createIdempotentRequestor'
 export { createParalleRequestor } from './createParalleRequestor'
 export { createRetryRequestor } from './createRetryRequestor'
 
-export type { RequestMethod, RequestOptions, Response, Requestor } from './requestType'
+export type { RequestMethod, RequestOptions, Response, Requestor, RequireOne } from './requestType'

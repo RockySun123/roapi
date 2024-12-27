@@ -1,5 +1,5 @@
 // import axios from "axios";
-import type { Requestor, RequestOptions, RequestMethod } from '../request-core'
+import type { Requestor, RequestOptions, RequestMethod, RequireOne } from '../request-core'
 import request from './fetchRequest'
 
 export const requestor: Requestor = {
@@ -20,7 +20,7 @@ export const requestor: Requestor = {
     }
 }
 
-export default (options: RequestOptions) => {
+export default (options: RequireOne<RequestOptions, 'method'>) => {
     const { url, method } = options
     const newMethod = method.toLowerCase() as Lowercase<RequestMethod>
     return requestor[newMethod](url!, options)
