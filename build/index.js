@@ -31,21 +31,21 @@ export default {
     input: resolveFile("./src/index.ts"),
     output: [
         {
-            file: resolveFile("./dist/rokapi.esm.js"),
+            file: resolveFile("./dist/index.js"),
             format: "esm",
-            name: 'roapi',
+            name: 'rokapi',
             // sourcemap: true
         },
         {
             file: resolveFile("./dist/rokapi.cjs.js"),
             format: "cjs",
-            name: 'roapi',
+            name: 'rokapi',
             // sourcemap: true
         },
         {
-            file: resolveFile("./dist/rokapi.js"),
+            file: resolveFile("./dist/rokapi.min.js"),
             format: "iife",
-            name: 'roapi',
+            name: 'rokapi',
             // sourcemap: true
         }
     ],
