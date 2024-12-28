@@ -7,8 +7,8 @@ import {
     createRetryRequestor,
     createSerialRequestor
 } from './request-core'
-import request, { requestor } from './request-imp'
-import { Requestor } from './request-core'
+import request, { requestor, use, setRequestInterceptor, setResponseInterceptor } from './request-imp'
+import type { Requestor } from './request-core'
 
 inject(requestor as Requestor)
 
@@ -19,7 +19,10 @@ export {
     createIdemportentRequestor,
     createParalleRequestor,
     createRetryRequestor,
-    createSerialRequestor
+    createSerialRequestor,
+    setRequestInterceptor,
+    setResponseInterceptor,
+    use
 }
-
+export type { MethodMustOpts, BaseRequestor } from './request-imp'
 // export default request

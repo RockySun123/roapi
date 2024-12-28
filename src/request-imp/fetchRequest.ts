@@ -1,5 +1,5 @@
 import { RequestOptions } from "../request-core";
-import type { RequestMethod } from "../request-core";
+import type { RequestMethod, RequireOne } from "../request-core";
 
 type FetchRequest = (url: string, options: RequestOptions) => {
     url: string;
@@ -49,10 +49,10 @@ const fetchMap: Record<RequestMethod, FetchRequest> = {
 }
 
 
-export const fetchRequest = (method: RequestMethod, url: string, options: RequestOptions) => {
+export const fetchRequest = (url: string, options: RequireOne<RequestOptions, 'method'>) => {
     const { responseType } = options;
-    options.method = method;
-    const { url: newUrl, options: newOptions } = fetchMap[method](url, options);
+
+    const { url: newUrl, options: newOptions } = fetchMap[options.method](url, options);
 
     return fetch(newUrl, newOptions).then((res) => {
         if (responseType === "arraybuffer") {

@@ -3,7 +3,7 @@
 )
 ## 📖 简介
 
-✅ 可自定义底层请求的封装，包括 请求重试、请求缓存、请求幂等、请求串行、请求并发
+✅ 可自定义底层请求的请求库，包括 请求重试、请求缓存、请求幂等、请求串行、请求并发，默认底层为fetch，可以使用 use 切换底层实现，见下面文档。
 
 ## 🎁 安装
 
@@ -144,9 +144,47 @@ request.get('http://127.0.0.1:4523/export/openapi/2?version=3.0').then(res => {
 request.get('http://127.0.0.1:4523/export/openapi/2?version=3.0').then(res => {
     console.log(4, res)
 })
+```
 
+### 💻 自定义底层请求
+
+```ts
+import axios from 'axios'
+import type { AxiosRequestConfig, ResponseType } from 'axios'
+import { use, useRequestor } from 'rokapi'
+
+export const axiosAdapter: BaseRequestor = async (url, options) => {
+    console.log('现在是axios 在执行')
+    const { method, responseType, ...restOptions } = options;
+    const axiosConfig: AxiosRequestConfig = {
+        url,
+        method: method as AxiosRequestConfig['method'],
+        responseType: responseType as ResponseType,
+        ...restOptions,
+    }
+    const response = await axios(axiosConfig);
+    return response.data
+}
+
+use(axiosAdapter) //切换底层请求
+const request = useRequestor() //使用自定义的底层请求
 
 ```
 
+### 🚖 拦截器使用
 
+```ts
+import {useRequestor, setRequestInterceptor, setResponseInterceptor } from 'rokapi'
+
+//拦截请求
+setRequestInterceptor(async (config) => {
+    config.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+    return config
+})
+//拦截响应
+setResponseInterceptor(async (res) => {
+    return {...res, additionalData: 'added'}
+})
+'
+```
 

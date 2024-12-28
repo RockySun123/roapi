@@ -26,11 +26,11 @@ export interface Response<T = any> {
 }
 
 export interface Requestor {
-    get<T = any>(url: string, options: RequestOptions): Promise<Response<T>>,
-    post<T = any>(url: string, options: RequestOptions): Promise<Response<T>>,
-    put<T = any>(url: string, options: RequestOptions): Promise<Response<T>>,
-    delete<T = any>(url: string, options: RequestOptions): Promise<Response<T>>,
-    patch<T = any>(url: string, options: RequestOptions): Promise<Response<T>>,
+    get<T = any>(url: string, options?: RequestOptions): Promise<Response<T>>,
+    post<T = any>(url: string, options?: RequestOptions): Promise<Response<T>>,
+    put<T = any>(url: string, options?: RequestOptions): Promise<Response<T>>,
+    delete<T = any>(url: string, options?: RequestOptions): Promise<Response<T>>,
+    patch<T = any>(url: string, options?: RequestOptions): Promise<Response<T>>,
     // request<T = any>(url: string, options: RequestOptions): Promise<Response<T>>, // 通用请求方法
 }
 
