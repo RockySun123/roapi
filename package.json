@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "description": "请求库",
   "keywords": [
-    "roapi",
+    "rokapi",
     "请求重试",
     "请求缓存",
     "请求幂等",
