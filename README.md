@@ -9,7 +9,9 @@
 
 ```bash
 npm install rokapi
+
 pnpm install rokapi
+
 yarn add rokapi
 ```
 
@@ -124,6 +126,21 @@ Promise.all([
 
 ```
 
+### 🚉 请求串行
+
+```ts
+import {createSerialRequestor} from 'rokapi'
+const requestor = createSerialRequestor()
+//测试串行
+Promise.all([
+    requestor.get('/api/v1/users',{}),
+    requestor.get('/api/v1/users',{})
+    requestor.get('/api/v1/users',{})
+    requestor.get('/api/v1/users',{})
+    requestor.get('/api/v1/users',{})
+])
+
+```
 
 
 

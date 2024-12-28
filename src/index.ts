@@ -4,7 +4,8 @@ import {
     createCacheRequestor,
     createIdemportentRequestor,
     createParalleRequestor,
-    createRetryRequestor
+    createRetryRequestor,
+    createSerialRequestor
 } from './request-core'
 import request, { requestor } from './request-imp'
 import { Requestor } from './request-core'
@@ -17,7 +18,8 @@ export {
     createCacheRequestor,
     createIdemportentRequestor,
     createParalleRequestor,
-    createRetryRequestor
+    createRetryRequestor,
+    createSerialRequestor
 }
 
 // export default request
