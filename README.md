@@ -1,9 +1,10 @@
 # rokapi 
-![rokapi](https://img.shields.io/badge/rokapi-v0.2.2-green
+![rokapi](https://img.shields.io/badge/rokapi-v0.3.0-green
 )
 ## 📖 简介
 
 ✅ 可自定义底层请求的请求库，包括 请求重试、请求缓存、请求幂等、请求串行、请求并发，默认底层为fetch，可以使用 use 切换底层实现，见下面文档。
+
 
 ## 🎁 安装
 
@@ -14,6 +15,52 @@ pnpm install rokapi
 
 yarn add rokapi
 ```
+
+### 📚 文档
+
+|名称 |描述|默认值|
+|:---|:---|:---|
+|request|默认请求函数||
+|useRequestor|获取请求函数||
+|createCacheRequestor|创建带有缓存的请求函数 ({key?,persist?,duration?,isValid?})|{duration:3600000}|
+|createIdemportentRequestor|创建幂等请求函数 (getKey)|false|
+|createParalleRequestor|创建可并发的请求函数 (maxCount)|4|
+|createRetryRequestor|创建可重试请求的函数 (maxCount, duration)|(5, 500)|
+|createSerialRequestor|创建可串行的请求函数||
+|setRequestInterceptor|拦截请求函数|(config)=>config|
+|setResponseInterceptor|拦截响应函数|(config)=>config|
+|use|切换底层请求函数，默认底层是fetch，use(自己封装的请求函数)。见下面示例||
+|requestControlls|关闭请求，可关闭单个请求或全部请求||
+
+**createCacheRequestor**
+|属性|说明|默认值|
+|:---|:---|:---|
+|key|缓存键生成函数,可自定义函数，或默认使用hash||
+|persist|是否持久化本地缓存,默认内存缓存,默认使用内存|false|
+|duration|缓存时长(毫秒)|3600000|
+|isValid|自定义缓存有效性校验函数||
+
+**createIdemportentRequestor**
+|参数|说明|默认值|
+|:---|:---|:---|
+|getKey|选择将强求参数转为JSON字符串,或默认使用hash|false|
+
+**createParalleRequestor**
+|参数|说明|默认值|
+|:---|:---|:---|
+|maxCount|最大并发数|4|
+
+**createRetryRequestor**
+|参数|说明|默认值|
+|:---|:---|:---|
+|maxCount|最大重试次数|5|
+|duration|重试间隔时间(毫秒)|500|
+
+**requestControlls**
+|属性|书名|参数|
+|:--|:---|:---|
+|cancel|关闭单个请求|cancelKey|
+|cancelAll|关闭所有请求||
 
 ## 🚴 使用
 
@@ -186,5 +233,21 @@ setResponseInterceptor(async (res) => {
     return {...res, additionalData: 'added'}
 })
 '
+```
+### 🚫 关闭请求
+
+```ts
+request.get('http://127.0.0.1:4523/export/openapi/2?version=3.0', {
+    cancelKey: 'key1'
+})
+request.get('http://127.0.0.1:4523/export/openapi/2?version=3.0', {
+    cancelKey: 'key2'
+})
+setTimeout(() => {
+    console.log(requestControlls.has('key1'))
+    // requestControlls.cancel('key1')  关闭单个请求
+    requestControlls.cancelAll() //关闭所有请求
+    console.log('取消了')
+}, 100)
 ```
 

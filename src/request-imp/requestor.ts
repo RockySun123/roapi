@@ -1,5 +1,6 @@
 import type { Requestor, RequestOptions, RequestMethod, RequireOne } from '../request-core'
 import request from './fetchRequest'
+import { reqAborts } from './abortControllers'
 
 export type MethodMustOpts = RequireOne<RequestOptions, 'method'>
 export type BaseRequestor = <T = any>(url: string, options: MethodMustOpts) => Promise<T>;
@@ -23,10 +24,19 @@ export const setResponseInterceptor = (interceptor: Interceptor<any>) => {
 //执行请求带拦截器
 const executeWithInterceptors: BaseRequestor = async (url, options) => {
     options.responseType = options.responseType || 'json'
+    //拦截请求参数
     if (requestInterceptor) {
         options = await requestInterceptor(options)
     }
-    let response = await currentRequestor(url, options);
+    //是否需要取消请求
+    let signal;
+    let { cancelKey, ...restOptions } = options
+    if (cancelKey) {
+        const controller = reqAborts.registry(cancelKey)
+        signal = controller?.signal
+    }
+    let response = await currentRequestor(url, { ...restOptions, signal });
+    //拦截响应数据
     if (responseInterceptor) {
         response = await responseInterceptor(response);
     }

@@ -4,5 +4,5 @@ export { createIdemportentRequestor } from './createIdempotentRequestor'
 export { createParalleRequestor } from './createParalleRequestor'
 export { createRetryRequestor } from './createRetryRequestor'
 export { createSerialRequestor } from './createSerialRequestor'
-
+export { hashRequest } from './cacheStore'
 export type { RequestMethod, RequestOptions, Response, Requestor, RequireOne } from './requestType'

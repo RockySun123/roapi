@@ -1,23 +1,9 @@
-import SparkMD5 from 'spark-md5';
 import { RequestOptions } from './requestType';
-import { useCacheStore } from './cacheStore';
+import { useCacheStore, hashRequest } from './cacheStore';
 import { useRequestor, createEventDrivenRequestor } from './requestor';
 import type { Requestor, Response } from './requestType';
 
-// 哈希生成请求的唯一标识
-export const hashRequest = (req: RequestOptions & { url: string }) => {
-    const spark = new SparkMD5();
 
-    spark.append(req.url);
-    for (const [key, value] of Object.entries(req.headers || {})) {
-        spark.append(key);
-        spark.append(value);
-    }
-    if (req.body) {
-        spark.append(JSON.stringify(req.body));
-    }
-    return spark.end();
-};
 
 // 创建幂等请求器
 export const createIdemportentRequestor = (getKey?: boolean): Requestor => {

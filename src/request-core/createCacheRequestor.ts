@@ -1,6 +1,6 @@
-import { useCacheStore } from './cacheStore';
+import { useCacheStore, hashRequest } from './cacheStore';
 import { useRequestor, createEventDrivenRequestor } from './requestor';
-import { hashRequest } from './createIdempotentRequestor'
+// import { hashRequest } from './createIdempotentRequestor'
 import type { RequestOptions, Requestor, Response, RequireOne } from './requestType'
 
 
@@ -46,7 +46,6 @@ export function createCacheRequestor(cacheOptions: CacheRequestorOptions): Reque
         }
     })
     req.on('responseBody', async (config: RequireOne<RequestOptions, 'url'>, resp: Response) => {
-        config.responseType = config.responseType || 'json'
         const key = options.key(config);//缓存键
         await store.set(key, { timestamp: Date.now(), data: resp })
     })

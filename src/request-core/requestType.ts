@@ -5,12 +5,14 @@ export interface RequestOptions {
     url?: string,
     method?: RequestMethod, // 限定请求方法
     headers?: Record<string, string>, // 请求头
-    body?: any, // 请求体
-    data?: any, // 请求体
+    body?: BodyInit | null | undefined, // 请求体
+    data?: Record<string, any>, // 请求体
     params?: Record<string, any>, // 查询参数
     timeout?: number, // 超时时间
     withCredentials?: boolean, // 是否携带凭证
     responseType?: XMLHttpRequestResponseType, // 响应类型
+    signal?: AbortSignal,
+    cancelKey?: string
     // onDownloadProgress?: (progressEvent: ProgressEvent) => void, // 下载进度回调
     // onUploadProgress?: (progressEvent: ProgressEvent) => void, // 上传进度回调
 }
