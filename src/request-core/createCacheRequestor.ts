@@ -1,7 +1,7 @@
 import { useCacheStore } from './cacheStore';
 import { useRequestor, createEventDrivenRequestor } from './requestor';
 import { hashRequest } from './createIdempotentRequestor'
-import type { RequestOptions, Requestor, Response } from './requestType'
+import type { RequestOptions, Requestor, Response, RequireOne } from './requestType'
 
 
 export interface CacheRequestorOptions {
@@ -28,9 +28,9 @@ export function createCacheRequestor(cacheOptions: CacheRequestorOptions): Reque
     const baseRequestor = useRequestor()
     const req = createEventDrivenRequestor(baseRequestor)
 
-    req.on("beforeRequest", async (config: RequestOptions & { url: string }) => {
+    req.on("beforeRequest", async (config: RequireOne<RequestOptions, 'url'>) => {
+        config.responseType = config.responseType || 'json'
         const key = options.key(config)
-
         if (await store.has(key)) {
             const cacheResponse = await store.get<{ timestamp: number; data: Response }>(key)
             if (
@@ -45,7 +45,8 @@ export function createCacheRequestor(cacheOptions: CacheRequestorOptions): Reque
             }
         }
     })
-    req.on('responseBody', async (config: RequestOptions & { url: string }, resp: Response) => {
+    req.on('responseBody', async (config: RequireOne<RequestOptions, 'url'>, resp: Response) => {
+        config.responseType = config.responseType || 'json'
         const key = options.key(config);//缓存键
         await store.set(key, { timestamp: Date.now(), data: resp })
     })

@@ -132,13 +132,19 @@ Promise.all([
 import {createSerialRequestor} from 'rokapi'
 const requestor = createSerialRequestor()
 //测试串行
-Promise.all([
-    requestor.get('/api/v1/users',{}),
-    requestor.get('/api/v1/users',{})
-    requestor.get('/api/v1/users',{})
-    requestor.get('/api/v1/users',{})
-    requestor.get('/api/v1/users',{})
-])
+request.get('http://127.0.0.1:4523/export/openapi/2?version=3.0').then(res => {
+    console.log(1, res)
+})
+request.get('http://127.0.0.1:4523/export/openapi/2?version=3.0').then(res => {
+    console.log(2, res)
+})
+request.get('http://127.0.0.1:4523/export/openapi/2?version=3.0').then(res => {
+    console.log(3, res)
+})
+request.get('http://127.0.0.1:4523/export/openapi/2?version=3.0').then(res => {
+    console.log(4, res)
+})
+
 
 ```
 

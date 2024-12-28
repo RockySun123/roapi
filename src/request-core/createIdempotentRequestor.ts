@@ -28,7 +28,7 @@ export const createIdemportentRequestor = (getKey?: boolean): Requestor => {
     const idemportentRequest = async <T>(
         method: keyof Requestor,
         url: string,
-        options: RequestOptions
+        options: RequestOptions = { responseType: 'json' }
     ): Promise<Response<T>> => {
         const config = {
             ...options,

@@ -8,14 +8,14 @@ export function createRetryRequestor(maxCount: number = 5, duration = 500): Requ
     async function retryRequest<T>(
         method: keyof Requestor,
         url: string,
-        options?: RequestOptions,
+        options: RequestOptions = { responseType: 'json' },
         retries: number = maxCount
     ): Promise<Response<T>> {
         try {
             return await req[method](url, options as RequestOptions)
         } catch (error) {
             if (retries > 0) {
-                console.log(`请求失败，正在重试...剩余次数：${retries}`)
+                console.warn(`请求失败，正在重试...剩余次数：${retries}`)
                 setTimeout(() => {
                     return retryRequest(method, url, options, retries - 1)
                 }, duration)

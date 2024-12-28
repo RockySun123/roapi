@@ -34,7 +34,7 @@ export const createSerialRequestor = (): Requestor => {
             //创建任务
             const task = async () => {
                 try {
-                    const response = await req[method](url, options || {})
+                    const response = await req[method](url, options || { responseType: 'json' })
                     resolve(response)
                 } catch (error) {
                     reject(error)

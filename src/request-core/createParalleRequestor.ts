@@ -41,7 +41,7 @@ export function createParalleRequestor(maxCount: number = 4): Requestor {
     async function parallelRequest<T>(
         method: keyof Requestor,
         url: string,
-        options?: RequestOptions
+        options: RequestOptions = { responseType: 'json' }
     ): Promise<Response<T>> {
         return enqueue(() => req[method](url, options as RequestOptions))
     }
