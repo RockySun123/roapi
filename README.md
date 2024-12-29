@@ -88,7 +88,7 @@ request({
 ```ts
 import {createCacheRequestor} from 'rokapi'
 const requestor = createCacheRequestor({
-    key?: (config: RequestOptions & { url: string }) => string;//缓存键生成函数,
+    key?: (config: RequestOptions & { url: string }) => string; //缓存键生成函数
     persist?: boolean;//是否持久化本地缓存,默认内存缓存
     duration?: number;//缓存时长(毫秒)
     isValid?: (key: string, config: RequestOptions) => boolean; //自定义缓存有效性校验函数
