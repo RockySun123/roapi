@@ -298,7 +298,7 @@ request.get('http://127.0.0.1:4523/export/openapi/2?version=3.0', {
 })
 setTimeout(() => {
     console.log(requestControlls.has('key1'))
-    // requestControlls.cancel('key1')  关闭单个请求
+    // requestControlls.cancel('key1')  关闭单个请求,
     requestControlls.cancelAll() //关闭所有请求
     console.log('取消了')
 }, 100)
