@@ -22,32 +22,34 @@ export function normalizeOptions(options: CacheRequestorOptions): Required<Cache
 }
 
 //缓存键生成函数
-export function createCacheRequestor(cacheOptions: CacheRequestorOptions): Requestor {
-    const options = normalizeOptions(cacheOptions)
-    const store = useCacheStore(options.persist);
-    const baseRequestor = useRequestor()
-    const req = createEventDrivenRequestor(baseRequestor)
+export function createCacheRequestor(cacheOptions: CacheRequestorOptions) {
+    return (baseRequestor?: Requestor): Requestor => {
+        const options = normalizeOptions(cacheOptions)
+        const store = useCacheStore(options.persist);
+        baseRequestor = baseRequestor || useRequestor()
+        const req = createEventDrivenRequestor(baseRequestor)
 
-    req.on("beforeRequest", async (config: RequireOne<RequestOptions, 'url'>) => {
-        config.responseType = config.responseType || 'json'
-        const key = options.key(config)
-        if (await store.has(key)) {
-            const cacheResponse = await store.get<{ timestamp: number; data: Response }>(key)
-            if (
-                cacheResponse &&
-                (!options.isValid ||
-                    options.isValid(key, config) ||
-                    (options.duration && Date.now() - cacheResponse.timestamp <= options.duration)
-                )
-            ) {
-                //阻止 进入 responseBody 事件
-                return cacheResponse.data//返回缓存数据
+        req.on("beforeRequest", async (config: RequireOne<RequestOptions, 'url'>) => {
+            config.responseType = config.responseType || 'json'
+            const key = options.key(config)
+            if (await store.has(key)) {
+                const cacheResponse = await store.get<{ timestamp: number; data: Response }>(key)
+                if (
+                    cacheResponse &&
+                    (!options.isValid ||
+                        options.isValid(key, config) ||
+                        (options.duration && Date.now() - cacheResponse.timestamp <= options.duration)
+                    )
+                ) {
+                    //阻止 进入 responseBody 事件
+                    return cacheResponse.data//返回缓存数据
+                }
             }
-        }
-    })
-    req.on('responseBody', async (config: RequireOne<RequestOptions, 'url'>, resp: Response) => {
-        const key = options.key(config);//缓存键
-        await store.set(key, { timestamp: Date.now(), data: resp })
-    })
-    return req
+        })
+        req.on('responseBody', async (config: RequireOne<RequestOptions, 'url'>, resp: Response) => {
+            const key = options.key(config);//缓存键
+            await store.set(key, { timestamp: Date.now(), data: resp })
+        })
+        return req
+    }
 }
