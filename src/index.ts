@@ -38,6 +38,4 @@ export {
 }
 export type { MethodMustOpts, BaseRequestor } from './request-imp'
 
-// export default request
 
-//todo 请求关闭

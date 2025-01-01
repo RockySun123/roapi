@@ -1,5 +1,5 @@
 # rokapi 
-![rokapi](https://img.shields.io/badge/rokapi-v1.0.0-green
+![rokapi](https://img.shields.io/badge/rokapi-v1.0.1-green
 )
 ## 📖 简介
 
