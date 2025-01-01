@@ -1,6 +1,5 @@
 import { useCacheStore, hashRequest } from './cacheStore';
 import { useRequestor, createEventDrivenRequestor } from './requestor';
-// import { hashRequest } from './createIdempotentRequestor'
 import type { RequestOptions, Requestor, Response, RequireOne } from './requestType'
 
 
@@ -22,7 +21,7 @@ export function normalizeOptions(options: CacheRequestorOptions): Required<Cache
 }
 
 //缓存键生成函数
-export function createCacheRequestor(cacheOptions: CacheRequestorOptions) {
+export function createCacheRequestor(cacheOptions: CacheRequestorOptions = { duration: 1000 * 60 * 60 }) {
     return (baseRequestor?: Requestor): Requestor => {
         const options = normalizeOptions(cacheOptions)
         const store = useCacheStore(options.persist);
